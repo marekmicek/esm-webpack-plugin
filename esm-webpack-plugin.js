@@ -35,7 +35,7 @@ function exportsForModule(module, libVar) {
     let namedExports = [];
 
     if (module instanceof MultiModule) {
-        module.dependencies.forEach(dependency => {
+        module.dependencies.filter(dependency => dependency.module.rootModule).forEach(dependency => {
             exports += exportsForModule(dependency.module, libVar);
         });
     } else if (Array.isArray(module.buildMeta.providedExports)) {
